@@ -9,7 +9,31 @@ import java.util.Scanner;
 public class CodingCompCSVUtil {
 	public List<List<String>> readCSVFileByCountry(String fileName, String countryName) throws IOException {
 		// TODO implement this method
-		return null;
+				List<List<String>> listOLists = new ArrayList<List<String>>();
+				List<String> rowData = new ArrayList<String>();
+					
+				
+				File file = new File(fileName);
+				Scanner inputStream = new Scanner(file);
+				inputStream.nextLine();
+				while (inputStream.hasNextLine()) {
+					rowData = new ArrayList<String>();
+					String line = inputStream.nextLine();
+					String[] values = line.split(",");
+					int i = 0;
+					int c = values.length;
+					while (c!=0) {
+						rowData.add(values[i]);
+						i++;
+						c--;
+					}
+					if (rowData.get(0).toString().equals(countryName)){
+						listOLists.add((ArrayList<String>) rowData);
+					}
+						
+				}
+				
+				return listOLists;
 	}
 	
 	public List<List<String>> readCSVFileWithHeaders(String fileName) throws IOException {
@@ -25,17 +49,20 @@ public class CodingCompCSVUtil {
 		
 		File file = new File(fileName);
 		Scanner inputStream = new Scanner(file);
-		inputStream.next();
-		while (inputStream.hasNext()) {
-			String data = inputStream.next();
-			String[] values = data.split(",");
+		inputStream.nextLine();
+		while (inputStream.hasNextLine()) {
+			rowData = new ArrayList<String>();
+			String line = inputStream.nextLine();
+			String[] values = line.split(",");
 			int i = 0;
-			while (values[i] != null) {
+			int c = values.length;
+			while (c!=0) {
 				rowData.add(values[i]);
 				i++;
+				c--;
 			}
 			listOLists.add((ArrayList<String>) rowData);	
-			rowData.clear();
+			
 		}
 		
 		return listOLists;
@@ -43,7 +70,19 @@ public class CodingCompCSVUtil {
 	
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
 		// TODO implement this method
-		return null;
+		int i = 0;
+		DisasterDescription dd = new DisasterDescription();
+		List<List<String>> ll = new ArrayList<List<String>>();
+		List<String> rowData = new ArrayList<String>();
+			for (i = 0; i < records.size(); i++) {
+				System.out.print(records.get(i));
+				rowData = records.get(i);
+			if(rowData.get(0).toString().equals("All natural disasters")) {
+				ll.add(rowData);
+			}
+		}
+		dd.setList(ll);
+		return dd;
 	}
 
 	public DisasterDescription getMostImpactfulYearByCategory(String category, List<List<String>> records) {
@@ -52,27 +91,54 @@ public class CodingCompCSVUtil {
 	}
 
 	public DisasterDescription getMostImpactfulDisasterByYear(String year, List<List<String>> records) {
-		// TODO implement this method 
-		return null;
+		// TODO implement this method
+		int i = 0,sum=0;
+		DisasterDescription dd = new DisasterDescription();
+		List<List<String>> ll = new ArrayList<List<String>>();
+		List<String> rowData = new ArrayList<String>();
+			for (i = 0; i < records.size(); i++) {
+				System.out.print(records.get(i));
+				rowData = records.get(i);
+			if(rowData.get(2).toString().equals(year)) {
+				ll.add(rowData);
+			}
+		}
+		dd.setList(ll);
+		String cat = dd.getCategory();
+		for(List rowData1: ll) {
+			String temp = rowData1.get(0).toString();
+			if(temp.equals(cat)) {
+				dd.setReportedIncidentsNum(Integer.parseInt(rowData1.get(3).toString()));
+			}
+		}
+		return dd;
 	}
 
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
 		// TODO implement this method
-<<<<<<< HEAD
+		int i = 0,sum=0;
+		DisasterDescription dd = new DisasterDescription();
+		List<List<String>> ll = new ArrayList<List<String>>();
+		List<String> rowData = new ArrayList<String>();
 		
-		return null;
-=======
-		int sum=0;
-		DisasterDescription dd;
-		for(List rowData:records){
-			if(rowData.get(0) == category) {
-				
+			for (i = 0; i < records.size(); i++) {
+				System.out.print(records.get(i));
+				rowData = records.get(i);
+			if(rowData.get(0).toString().equals(category)) {
+				ll.add(rowData);
 			}
-//			int i = (Integer) rowData.get(3);
-//			sum+= i;
 		}
-		return sum;
->>>>>>> branch 'master' of https://github.com/manohar52/SF2019.git
+		dd.setList(ll);
+		
+		int sum1 = 0,y;
+		for(List rowData1: ll) {
+			String temp = rowData1.get(3).toString();
+			y = Integer.parseInt(temp);
+			sum1+=y;
+		}
+		dd.setReportedIncidentsNum(sum1);
+		
+		return dd;
 	}
 	
 	/**
