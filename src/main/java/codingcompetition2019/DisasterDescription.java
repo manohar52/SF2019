@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class DisasterDescription {
+<<<<<<< HEAD
 //	private List list = new ArrayList();
 	private List<List<String>> listOLists = new ArrayList<List<String>>();
 	private List<String> rowData = new ArrayList<String>();
@@ -22,4 +23,8 @@ public class DisasterDescription {
 		return sum;
 	}
 	
+=======
+	
+	// TODO finish this class
+>>>>>>> branch 'master' of https://github.com/manohar52/SF2019.git
 }
