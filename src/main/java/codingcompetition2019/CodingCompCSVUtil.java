@@ -1,7 +1,10 @@
 package codingcompetition2019;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class CodingCompCSVUtil {
 	public List<List<String>> readCSVFileByCountry(String fileName, String countryName) throws IOException {
@@ -16,7 +19,26 @@ public class CodingCompCSVUtil {
 	
 	public List<List<String>> readCSVFileWithoutHeaders(String fileName) throws IOException {
 		// TODO implement this method
-		return null;
+		List<List<String>> listOLists = new ArrayList<List<String>>();
+		List<String> rowData = new ArrayList<String>();
+			
+		
+		File file = new File(fileName);
+		Scanner inputStream = new Scanner(file);
+		inputStream.next();
+		while (inputStream.hasNext()) {
+			String data = inputStream.next();
+			String[] values = data.split(",");
+			int i = 0;
+			while (values[i] != null) {
+				rowData.add(values[i]);
+				i++;
+			}
+			listOLists.add((ArrayList<String>) rowData);	
+			rowData.clear();
+		}
+		
+		return listOLists;
 	}
 	
 	public DisasterDescription getMostImpactfulYear(List<List<String>> records) {
@@ -36,7 +58,16 @@ public class CodingCompCSVUtil {
 
 	public DisasterDescription getTotalReportedIncidentsByCategory(String category, List<List<String>> records) {
 		// TODO implement this method
-		return null;
+		int sum=0;
+		DisasterDescription dd;
+		for(List rowData:records){
+			if(rowData.get(0) == category) {
+				
+			}
+//			int i = (Integer) rowData.get(3);
+//			sum+= i;
+		}
+		return sum;
 	}
 	
 	/**
